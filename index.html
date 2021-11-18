@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yusong JS 30 days</title>
+    <meta name=description content="Records Yusong JS 30 days note and demo">
+    <meta name=author content=Hsunight>
+    <meta property=og:title content="Yusong JS 30 days">
+    <meta property=og:type content="website">
+    <meta property=og:url content="https://sky172839465.github.io/course/js30">
+    <meta property=og:image content="https://sky172839465.github.io/course/js30/img/js30.png">
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />    
+    <meta property=og:description content="Records Yusong JS 30 days notes and demo">
+    <meta property=og:site_name content="JS30">  
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        a.btn.btn-link {
+            text-decoration: none;
+        }
+        .view-on-github {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 110px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Yusong JS 30 days</a>
+        </nav>
+        <a href="https://github.com/sky172839465/JS30" target="_blank">
+            <img class="view-on-github" src="./img/view-on-github.black.png" alt="view on github">
+        </a>
+    </header>
+
+    <section>
+        <div class="container my-2 table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" class="col-auto">Day</th>
+                        <th scope="col" class="col">Course Name</th>
+                        <th scope="col" class="col">Demo</th>
+                        <th scope="col" class="col">Note</th>
+                    </tr>
+                </thead>
+                <tbody class="course-list-area">
+                </tbody>
+            </table>            
+        </div>
+    </section>
+
+    <footer>
+        <p class="text-center">Yusong Hsu &copy; 2018</p>
+    </footer>
+
+    <script>
+        const courseListArea = document.querySelector('.course-list-area');
+        const courseList = [
+            { name: 'JavaScript Drum Kit', finish: true },
+            { name: 'CSS + JS Clock', finish: true },
+            { name: 'Playing with CSS Variables and JS', finish: true },
+            { name: 'Array Cardio Day 1', finish: true },
+            { name: 'Flex Panels Image Gallery', finish: true },
+            { name: 'Ajax Type Ahead', finish: true },
+            { name: 'Array Cardio Day 2', finish: true },
+            { name: 'Fun with HTML5 Canvas', finish: true },
+            { name: '14 Must Know Dev Tools Tricks', finish: true },
+            { name: 'Hold Shift to Check Multiple Checkboxes', finish: true },
+            { name: 'Custom HTML5 Video Player', finish: true },
+            { name: 'Key Sequence Detection (KONAMI CODE)', finish: true },
+            { name: 'Slide In on Scroll', finish: true },
+            { name: 'Object and Arrays - Reference VS Copy', finish: true },
+            { name: 'LocalStorage and Event Delegation', finish: true },
+            { name: 'CSS Text Shadow Mouse Move Effect', finish: true },
+            { name: 'Sorting Band Names without articles', finish: true },
+            { name: 'Tally String Times with Reduce', finish: true },
+            { name: 'Unreal Webcam Fun', finish: true },
+            { name: 'Native Speech Recognition', finish: true },
+            { name: 'Geolocation based Speedometer and Compass', finish: true },
+            { name: 'Follow Along Links', finish: true },
+            { name: 'Speech Synthesis', finish: true },
+            { name: 'Sticky Nav', finish: true },
+            { name: 'Event Capture, Propagation, Bubbling and Once', finish: true },
+            { name: 'Stripe Follow Along Dropdown', finish: true },
+            { name: 'Click and Drag to Scroll', finish: true },    
+            { name: 'Video Speed Controller UI', finish: true },
+            { name: 'Countdown Clock', finish: true },
+            { name: 'Whack A Mole Game', finish: true }                     
+        ];
+        const demoHomeLink = 'https://sky172839465.github.io/course/js30';
+        const noteHomeLink = 'https://github.com/sky172839465/JS30/tree/master';
+
+        generatorCourseList(courseList);
+
+        function generatorCourseList(courseList) {
+            let table = [];
+            courseList.forEach((course, index) => {
+                let html, demo, note,
+                    courseIndex = (index + 1),
+                    courseRef = (courseIndex < 10) ? `0${courseIndex}` : `${courseIndex}`;
+
+                if (course.finish) {
+                    demo = `
+                        <a 
+                            class="btn btn-link" 
+                            target="_blank"
+                            href="${demoHomeLink}/${courseRef}">
+                            Demo
+                        </a>
+                    `;
+
+                    note = `
+                        <a 
+                            class="btn btn-link" 
+                            target="_blank"
+                            href="${noteHomeLink}/${courseRef}/readme.md">
+                            Note
+                        </a>
+                    `;
+                } else {
+                    demo = '<span>pending</span>';
+                    note = '<span>pending</span>';
+                }
+                html = `
+                    <tr>
+                        <th scope="row">${courseRef}</th>
+                        <td>${course.name}</td>
+                        <td>${demo}</td>
+                        <td>${note}</td>                            
+                    </tr>
+                `;
+                table.push(html);
+            });
+            courseListArea.innerHTML = table.join('');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>    
+</body>
+</html>
