@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<link href="//fonts.googleapis.com/css?family=Arvo:regular,italic,bold" rel="stylesheet" type="text/css">
+
+		<style>
+
+			body {
+				width: 80%;
+				margin: 3em;
+				background: #fff;
+				font-family: Arvo, Helvetica, sans-serif;
+				font-size: 1.5em;
+				line-height: 1.5em;
+			}
+
+			h1, h2, h3, h4 {
+				margin: 2em 0 1em 0;
+			}
+
+			h4 {
+				margin: 0 0 0.5em 0;
+			}
+
+			form {
+				margin: 0 0 3em 0;
+			}
+
+			fieldset {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+
+			textarea {
+				border: solid 1px gray;
+				box-sizing: border-box;
+				padding: 5px;
+				width: 100%;
+				height: 15em;
+				font-family: monospace;
+				font-size: .7em;
+			}
+
+			input[type=text] {
+				border: solid 1px gray;
+				box-sizing: border-box;
+				font-family: inherit;
+				font-size: .7em;
+				margin-bottom: 10px;
+				padding: 3px 5px;
+				width: 100%;
+			}
+
+			input[type=checkbox] {
+				vertical-align: middle;
+			}
+
+			#InputFields {
+				background: #ccc;
+				padding: 0.5em;
+			}
+
+			#OutputFields {
+				clear: left;
+				background: #cfc;
+				padding: 0.5em;
+			}
+
+			#Labels {
+				padding: 0;
+			}
+
+			#InputLabel {
+				float: left;
+				background: #ccc;
+				padding: 0.25em 0.5em;
+			}
+
+			#OutputLabel {
+				float: right;
+				background: #cfc;
+				padding: 0.25em 0.5em;
+			}
+
+			#OutputLink {
+				font-size: 0.9em;
+			}
+
+			#ErrorOutput {
+				overflow: hidden;
+				padding: 0.25em 0.5em;
+				text-align: center;
+				background-color: #fcc;
+				color: #f00;
+			}
+
+			.options {
+				margin: 2em 0;
+				padding: 1em;
+				border: solid 1px #ccc;
+			}
+
+			.disabled {
+				color: #9c9;
+			}
+
+			.disabled a {
+				color: #9c9;
+				cursor: default;
+			}
+
+			.pointer {
+				cursor: pointer;
+			}
+
+		</style>
+
+		<title>Bookmarkleter</title>
+
+	</head>
+
+	<body ng-app="bookmarkleter">
+
+		<header>
+			<h2>Bookmarkleter</h2>
+		</header>
+
+
+
+		<p>You have JavaScript. You need a <a href="http://en.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>. This does that.</p>
+
+		<form onsubmit="return false;" ng-controller="appController">
+
+			<div class="options">
+
+				<h4>Options</h4>
+
+				<fieldset>
+					<input class="pointer" type="checkbox" id="urlencode" ng-model="options.urlencode" ng-change="updateBookmarklet(options)"></input>
+					<label class="pointer" for="urlencode">URL-encode reserved characters: [space], %, &quot;, &lt;, &gt;, #, @, &amp;, ?</label>
+				</fieldset>
+
+				<fieldset>
+					<input class="pointer" type="checkbox" id="iife" ng-model="options.iife" ng-change="updateBookmarklet(options)"></input>
+					<label class="pointer" for="iife">Wrap in an <a href="http://en.wikipedia.org/wiki/Immediately-invoked_function_expression">IIFE</a> (anonymizing function).</label>
+				</fieldset>
+
+				<fieldset>
+					<input class="pointer" type="checkbox" id="mangle" ng-model="options.mangleVars" ng-change="updateBookmarklet(options)"></input>
+					<label class="pointer" for="mangle">Minify code using <a href="https://github.com/babel/minify">Babel Minify</a>.</label>
+				</fieldset>
+
+				<fieldset>
+					<input class="pointer" type="checkbox" id="transpile" ng-model="options.transpile" ng-change="updateBookmarklet(options)"></input>
+					<label class="pointer" for="transpile">Transpile ES2015 to ES5 using Babel to support old browsers.</label>
+				</fieldset>
+
+				<fieldset>
+					<input class="pointer" type="checkbox" id="reqjq" ng-model="options.jQuery" ng-change="updateBookmarklet(options)"></input>
+					<label class="pointer" for="reqjq">Make sure a modern version (≥ 1.7) of <a href="http://jquery.com">jQuery</a> is available for your code.</label>
+				</fieldset>
+
+			</div>
+
+			<fieldset id="InputFields">
+				<input type="text" aria-label="Bookmarklet name" placeholder="Bookmarklet name" ng-change="updateBookmarklet(options)" ng-model="name" />
+				<br />
+				<textarea placeholder="Paste your JavaScript here." ng-model="input" ng-change="updateBookmarklet(options)"></textarea>
+			</fieldset>
+
+			<fieldset id="Labels">
+				<label id="InputLabel" for="Input">JavaScript</label>
+				<label id="OutputLabel" for="Output">Bookmarklet</label>
+				<div id="ErrorOutput" ng-show="error">{{ error }}</div>
+			</fieldset>
+
+			<fieldset id="OutputFields">
+				<textarea ng-bind="output" id="Output" wrap="hard" readonly></textarea>
+				<div id="OutputLink" ng-class="output ? '' : 'disabled'">Drag this link to your bookmarks bar: <a id="OutputHref" ng-attr-href="{{ output }}">{{ displayName }}</a></div>
+			</fieldset>
+
+		</form>
+
+		<h3>License</h3>
+
+		<p>This is free software. It is released to the public domain without warranty.</p>
+
+		<div><a href="https://github.com/chriszarate/bookmarkleter"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a></div>
+
+		<script src="build/browser-tool.js"></script>
+
+	</body>
+
+</html>
