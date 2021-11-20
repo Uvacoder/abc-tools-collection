@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handy Draggy Bookmarklets</title>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      width: 100vw;
+      height: 100vh;
+    }
+    body {
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+    main, footer {
+      margin: 40px auto;
+      padding: 16px;
+      width: 100vw;
+      max-width: 632px;
+      line-height: 1.6;
+    }
+    .text-center {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Handy Draggy Bookmarklets</h1>
+    <p>These are some cool bookmarklets in a form where you can drag them to your bookmarks bar without having to manually create them!</p>
+
+    <h2>Largest Contentful Paint Bookmarklet</h2>
+    <blockquote>"A bookmarklet for viewing the largest contentful paint in a page.
+       Will show each LCP after the bookmarklet is clicked."</blockquote>
+    <p>This one is by <a href="https://github.com/anniesullie">Annie Sullivan</a> and the most updated code can be found in her <a href="https://gist.github.com/anniesullie/cf2982342337fd1b2be95c2d5fe5ea06">gist</a>.</p>
+    <p>Drag this to your bookmarks: <a href="javascript:(function(){
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.position = 'absolute';
+        canvas.style.left = 0;
+        canvas.style.top = 0;
+        canvas.style.zIndex = 100000;
+        canvas.style.pointerEvents = 'none';
+        document.body.appendChild(canvas);
+        const context = canvas.getContext('2d');
+        const po = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            let rect = entry.element.getBoundingClientRect();
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.strokeStyle = 'red';
+            context.strokeRect(rect.x,
+                              rect.y,
+                              rect.width,
+                              rect.height);
+          }
+        });
+
+        po.observe({type: 'largest-contentful-paint', buffered: true});}catch(e){}})();">LargestContentfulPaint</a> bookmarklet.</p>
+  </main>
+  <footer>
+    <p>This page was built by <a href="https://sia.codes/">Sia</a>, but the tools in it were not. Check out those awesome creators in the links above!</p>
+    <p class="text-center"><small><a href="https://github.com/siakaramalegos/bookmarklets">Edit this on GitHub</a></small></p>
+  </footer>
+</body>
+</html>
