@@ -1,0 +1,34 @@
+{
+  "name": "bookmarkleter",
+  "version": "1.0.1",
+  "description": "You have JavaScript. You need a bookmarklet. This does that.",
+  "main": "bookmarkleter.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "build": "browserify browser-tool.js | minify > build/browser-tool.js",
+    "coverage": "istanbul cover nodeunit test",
+    "test": "npm run coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chriszarate/bookmarkleter.git"
+  },
+  "author": "Chris Zarate",
+  "license": "PDDL-1.0",
+  "bugs": {
+    "url": "https://github.com/chriszarate/bookmarkleter/issues"
+  },
+  "homepage": "https://uvacoder.github.io/bookmarkleter/",
+  "devDependencies": {
+    "angular": "^1.6.3",
+    "browserify": "^14.1.0",
+    "istanbul": "^0.4.5",
+    "nodeunit": "^0.11.0"
+  },
+  "dependencies": {
+    "babel-minify": "^0.5.0",
+    "babel-standalone": "^6.17.0"
+  }
+}
