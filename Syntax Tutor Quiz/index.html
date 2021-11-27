@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Syntax Tutor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="codemirror/codemirror.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <section>
+            <div id="notification" style="display: none;"></div>
+
+            <div class="container">
+                <div style="text-align: center;">
+                    <h1 style="margin-bottom: 0;">Syntax Tutor</h1>
+                    <p id="score">
+                        Score: 0
+                    </p>
+                </div>
+
+                <pre id="example"></pre>
+
+                <h2 id="prompt">Is this correct syntax?</h2>
+                <button id="correct">Yes</button>
+                <button id="incorrect">No</button>
+
+                <div id="makeCorrections" style="display: none;">
+                    <h3>How could you correct the syntax?</h3>
+
+                    <div id="editor"></div>
+
+                    <button id="submit">Submit</button>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span style="margin-left: 5px; font-weight: bold;">Customize Problem Types:</span>
+
+            <ul id="problemTypes"></ul>
+        </footer>
+
+        <script src="codemirror/codemirror.js"></script>
+
+        <script src="codemirror/addon/runmode/runmode.js"></script>
+        <script src="codemirror/mode/javascript/javascript.js"></script>
+
+        <script src="https://unpkg.com/esprima@4.0.1/dist/esprima.js"></script>
+
+        <script src="js/app.js"></script>
+    </body>
+</html>
